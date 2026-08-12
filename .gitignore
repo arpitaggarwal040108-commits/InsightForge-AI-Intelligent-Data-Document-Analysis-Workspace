@@ -1,0 +1,15 @@
+.env
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+instance/
+uploads/*
+!uploads/.gitkeep
+
+static/charts/*
+!static/charts/.gitkeep
+
+ml/saved_models/*
+!ml/saved_models/.gitkeep

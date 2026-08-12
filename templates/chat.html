@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AI Assistant | Smart AI Assistant</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+
+        <i class="fa-solid fa-robot"></i>
+
+        Smart AI Assistant
+
+    </div>
+
+    <nav>
+
+        <a href="/">Home</a>
+
+        <a href="/chat">AI Chat</a>
+
+    </nav>
+
+</header>
+
+<div class="chat-container">
+
+<h1>
+
+🤖 AI Assistant
+
+</h1>
+
+<p class="subtitle">
+
+Ask questions about your uploaded CSV dataset,
+PDF documents,
+trained ML model,
+or predictions.
+
+</p>
+
+<div class="chat-window">
+
+<div class="ai-message">
+
+<div class="avatar">
+
+🤖
+
+</div>
+
+<div class="message">
+
+<h3>
+
+Smart AI Assistant
+
+</h3>
+
+<p>
+
+Hello! 👋
+
+You can ask me things like:
+
+</p>
+
+<ul>
+
+<li>
+
+Summarize the uploaded PDF
+
+</li>
+
+<li>
+
+Explain a machine learning result
+
+</li>
+
+<li>
+
+Describe the dataset
+
+</li>
+
+<li>
+
+Compare values
+
+</li>
+
+<li>
+
+Find specific information
+
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+<form method="POST"
+
+class="chat-form">
+
+<textarea
+
+name="question"
+
+rows="4"
+
+placeholder="Ask anything..."
+
+required>
+
+</textarea>
+
+<button type="submit">
+
+<i class="fa-solid fa-paper-plane"></i>
+
+Ask AI
+
+</button>
+
+</form>
+{% if answer %}
+
+<div class="ai-message response-message">
+
+<div class="avatar">
+
+🤖
+
+</div>
+
+<div class="message">
+
+<h3>
+
+Smart AI Assistant
+
+</h3>
+
+<div class="answer markdown-body">
+
+{{ answer|safe }}
+
+</div>
+
+</div>
+
+</div>
+
+{% endif %}
+
+</div>
+
+</div>
+
+<footer>
+
+<p>
+
+© 2026 Smart AI Assistant
+
+</p>
+
+</footer>
+
+</body>
+
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Model Training | Smart AI Assistant</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+
+        <i class="fa-solid fa-robot"></i>
+
+        Smart AI Assistant
+
+    </div>
+
+    <nav>
+
+        <a href="/">Home</a>
+
+        <a href="/chat">AI Chat</a>
+
+    </nav>
+
+</header>
+
+<div class="dashboard-container">
+
+<h1>
+
+🎉 Model Trained Successfully
+
+</h1>
+
+<p class="subtitle">
+
+Your Machine Learning model has been trained successfully.
+
+Below are the evaluation metrics.
+
+</p>
+
+<div class="glass-section">
+
+<h2>
+
+📊 Evaluation Metrics
+
+</h2>
+
+<table class="modern-table">
+
+<tr>
+
+<th>
+
+Metric
+
+</th>
+
+<th>
+
+Value
+
+</th>
+
+</tr>
+
+{% for key,value in metrics.items() %}
+
+<tr>
+
+<td>
+
+{{ key }}
+
+</td>
+
+<td>
+
+{{ value }}
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+<div class="summary-grid">
+
+<div class="summary-card">
+
+<i class="fa-solid fa-chart-line"></i>
+
+<h3>
+
+Model Ready
+
+</h3>
+
+<p>
+
+Your trained model is now available for making predictions.
+
+</p>
+
+</div>
+
+<div class="summary-card">
+
+<i class="fa-solid fa-brain"></i>
+
+<h3>
+
+AI Ready
+
+</h3>
+
+<p>
+
+Use the prediction page to test your model with new input values.
+
+</p>
+
+</div>
+
+</div>
+
+<div style="display:flex;gap:20px;flex-wrap:wrap;justify-content:center;margin-top:40px;">
+
+<a href="/predict">
+
+<button class="primary-btn">
+
+<i class="fa-solid fa-bullseye"></i>
+
+Predict New Data
+
+</button>
+
+</a>
+
+<a href="/">
+
+<button class="primary-btn">
+
+<i class="fa-solid fa-upload"></i>
+
+Upload New Dataset
+
+</button>
+
+</a>
+
+<a href="/chat">
+
+<button class="primary-btn">
+
+<i class="fa-solid fa-comments"></i>
+
+Open AI Chat
+
+</button>
+
+</a>
+
+</div>
+
+</div>
+
+<footer>
+
+<p>
+
+© 2026 Smart AI Assistant
+
+</p>
+
+</footer>
+
+</body>
+
+</html>

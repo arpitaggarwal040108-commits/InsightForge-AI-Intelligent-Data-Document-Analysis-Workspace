@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | Smart AI Assistant</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+
+        <i class="fa-solid fa-robot"></i>
+
+        Smart AI Assistant
+
+    </div>
+
+    <nav>
+
+        <a href="/">Home</a>
+
+        <a href="/chat">AI Chat</a>
+
+    </nav>
+
+</header>
+
+<div class="dashboard-container">
+
+<h1>
+
+Dataset Dashboard
+
+</h1>
+
+<p class="subtitle">
+
+Complete overview of your uploaded dataset
+
+</p>
+
+<!-- ===========================
+Summary Cards
+=========================== -->
+
+<div class="summary-grid">
+
+<div class="summary-card">
+
+<i class="fa-solid fa-table"></i>
+
+<h2>
+
+{{ summary.rows }}
+
+</h2>
+
+<p>Total Rows</p>
+
+</div>
+
+<div class="summary-card">
+
+<i class="fa-solid fa-columns"></i>
+
+<h2>
+
+{{ summary.columns }}
+
+</h2>
+
+<p>Total Columns</p>
+
+</div>
+
+<div class="summary-card">
+
+<i class="fa-solid fa-broom"></i>
+
+<h2>
+
+{{ cleaning.duplicates_removed }}
+
+</h2>
+
+<p>Duplicates Removed</p>
+
+</div>
+
+<div class="summary-card">
+
+<i class="fa-solid fa-database"></i>
+
+<h2>
+
+{{ cleaning.cleaned_rows }}
+
+</h2>
+
+<p>Rows After Cleaning</p>
+
+</div>
+
+</div>
+
+<!-- ===========================
+Dataset Information
+=========================== -->
+
+<div class="glass-section">
+
+<h2>
+
+Dataset Information
+
+</h2>
+
+<table class="modern-table">
+
+<tr>
+
+<th>Total Rows</th>
+
+<td>{{ summary.rows }}</td>
+
+</tr>
+
+<tr>
+
+<th>Total Columns</th>
+
+<td>{{ summary.columns }}</td>
+
+</tr>
+
+</table>
+
+</div>
+
+<!-- ===========================
+Cleaning Report
+=========================== -->
+
+<div class="glass-section">
+
+<h2>
+
+Cleaning Report
+
+</h2>
+
+<table class="modern-table">
+
+<tr>
+
+<th>Original Rows</th>
+
+<td>{{ cleaning.original_rows }}</td>
+
+</tr>
+
+<tr>
+
+<th>Rows After Cleaning</th>
+
+<td>{{ cleaning.cleaned_rows }}</td>
+
+</tr>
+
+<tr>
+
+<th>Duplicates Removed</th>
+
+<td>{{ cleaning.duplicates_removed }}</td>
+
+</tr>
+
+</table>
+
+</div>
+
+<!-- ===========================
+Column Names
+=========================== -->
+
+<div class="glass-section">
+
+<h2>
+
+Column Names
+
+</h2>
+
+<div class="tag-container">
+
+{% for column in summary.column_names %}
+
+<span class="tag">
+
+{{ column }}
+
+</span>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+<!-- ===========================
+Data Types
+=========================== -->
+
+<div class="glass-section">
+
+<h2>
+
+Data Types
+
+</h2>
+
+<table class="modern-table">
+
+<tr>
+
+<th>Column</th>
+
+<th>Type</th>
+
+</tr>
+
+{% for column, dtype in summary.data_types.items() %}
+
+<tr>
+
+<td>{{ column }}</td>
+
+<td>{{ dtype }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+<!-- ===========================
+Missing Values
+=========================== -->
+
+<div class="glass-section">
+
+<h2>
+
+Missing Values
+
+</h2>
+
+<table class="modern-table">
+
+<tr>
+
+<th>Column</th>
+
+<th>Missing</th>
+
+</tr>
+
+{% for column,value in summary.missing_values.items() %}
+
+<tr>
+
+<td>{{ column }}</td>
+
+<td>{{ value }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+<!-- ===========================
+Unique Values
+=========================== -->
+
+<div class="glass-section">
+
+<h2>
+
+Unique Values
+
+</h2>
+
+<table class="modern-table">
+
+<tr>
+
+<th>Column</th>
+
+<th>Unique Values</th>
+
+</tr>
+
+{% for column,value in unique.items() %}
+
+<tr>
+
+<td>{{ column }}</td>
+
+<td>{{ value }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+<!-- ===========================
+Preview
+=========================== -->
+
+<div class="glass-section">
+
+<h2>
+
+Dataset Preview
+
+</h2>
+
+<div class="table-wrapper">
+
+{{ preview|safe }}
+
+</div>
+
+</div>
+
+<!-- ===========================
+Numerical Statistics
+=========================== -->
+<div class="glass-section">
+
+<h2>
+
+Numerical Statistics
+
+</h2>
+
+{% if statistics %}
+
+    {% for column, values in statistics.items() %}
+
+    <div class="stats-card">
+
+        <h3>{{ column }}</h3>
+
+        <table class="modern-table">
+
+            <tr>
+
+                <th>Statistic</th>
+
+                <th>Value</th>
+
+            </tr>
+
+            <tr>
+
+                <td>Mean</td>
+
+                <td>{{ values.mean }}</td>
+
+            </tr>
+
+            <tr>
+
+                <td>Median</td>
+
+                <td>{{ values.median }}</td>
+
+            </tr>
+
+            <tr>
+
+                <td>Mode</td>
+
+                <td>{{ values.mode }}</td>
+
+            </tr>
+
+            <tr>
+
+                <td>Standard Deviation</td>
+
+                <td>{{ values.std }}</td>
+
+            </tr>
+
+            <tr>
+
+                <td>Variance</td>
+
+                <td>{{ values.variance }}</td>
+
+            </tr>
+
+            <tr>
+
+                <td>Minimum</td>
+
+                <td>{{ values.minimum }}</td>
+
+            </tr>
+
+            <tr>
+
+                <td>Maximum</td>
+
+                <td>{{ values.maximum }}</td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+    {% endfor %}
+
+{% else %}
+
+<p>
+
+No numerical columns found.
+
+</p>
+
+{% endif %}
+
+</div>
+
+<!-- ===========================
+Correlation Matrix
+=========================== -->
+
+<div class="glass-section">
+
+<h2>
+
+Correlation Matrix
+
+</h2>
+
+<div class="table-wrapper">
+
+{{ correlation|safe }}
+
+</div>
+
+</div>
+
+<!-- ===========================
+Charts
+=========================== -->
+
+<div class="glass-section">
+
+<h2>
+
+Visualizations
+
+</h2>
+
+{% if charts %}
+
+<div class="chart-grid">
+
+{% for chart_name, image in charts.items() %}
+
+<div class="chart-card">
+
+<h3>
+
+{{ chart_name.replace("_"," ").title() }}
+
+</h3>
+
+<img
+
+src="{{ url_for('static', filename=image) }}"
+
+class="chart-image"
+
+alt="Chart">
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% else %}
+
+<p>
+
+No charts available.
+
+</p>
+
+{% endif %}
+
+</div>
+
+<!-- ===========================
+Machine Learning
+=========================== -->
+
+<div class="glass-section">
+
+<h2>
+
+Train Machine Learning Model
+
+</h2>
+
+<form action="/train"
+
+method="POST"
+
+class="modern-form">
+
+<label>
+
+Target Column
+
+</label>
+
+<select name="target">
+
+{% for column in columns %}
+
+<option value="{{ column }}">
+
+{{ column }}
+
+</option>
+
+{% endfor %}
+
+</select>
+
+<label>
+
+Algorithm
+
+</label>
+
+<select name="model">
+
+<option>
+
+Linear Regression
+
+</option>
+
+<option>
+
+Logistic Regression
+
+</option>
+
+<option>
+
+Decision Tree
+
+</option>
+
+<option>
+
+Random Forest
+
+</option>
+
+<option>
+
+KNN
+
+</option>
+
+</select>
+
+<button type="submit"
+
+class="primary-btn">
+
+<i class="fa-solid fa-play"></i>
+
+Train Model
+
+</button>
+
+</form>
+
+</div>
+
+<!-- ===========================
+AI Assistant
+=========================== -->
+
+<div class="glass-section">
+
+<h2>
+
+AI Assistant
+
+</h2>
+
+<p>
+
+Ask questions about your uploaded CSV dataset or PDF document using Gemini AI and Retrieval-Augmented Generation.
+
+</p>
+
+<a href="/chat">
+
+<button class="primary-btn">
+
+<i class="fa-solid fa-comments"></i>
+
+Open AI Chat
+
+</button>
+
+</a>
+
+</div>
+
+</div>
+
+<footer>
+
+<p>
+
+© 2026 Smart AI Assistant
+
+</p>
+
+</footer>
+
+</body>
+
+</html>

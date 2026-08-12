@@ -1,23 +1,21 @@
 Flask==3.1.0
+gunicorn==23.0.0
 
 pandas==2.2.3
 numpy==2.2.2
 matplotlib==3.10.0
-
 scikit-learn==1.6.1
 
 google-generativeai==0.8.4
-
 python-dotenv==1.0.1
 
 PyPDF2==3.0.1
 pdfplumber==0.11.5
+PyMuPDF==1.25.3
 
 joblib==1.4.2
-
 openpyxl==3.1.5
-
 requests==2.32.3
 
-joblib==1.4.2
-PyMuPDF
+markdown
+faiss-cpu

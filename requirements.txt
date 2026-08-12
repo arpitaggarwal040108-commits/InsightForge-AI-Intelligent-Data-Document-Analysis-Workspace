@@ -19,3 +19,4 @@ requests==2.32.3
 
 markdown
 faiss-cpu
+rank-bm25==0.2.2
